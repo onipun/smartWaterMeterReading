@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <div th:replace="/fragments/head.html :: head"></div>
+    </head>
+    <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My project</a>
+            <a href="/login" class="btn btn-primary"><span class="fa fa-user"></span> SignIn</a>
+            <a href="/logout" class="btn btn-danger">Logout <span class="fa fa-sign-out"></span> </a>
+            <a href="/facebook" class="btn btn-primary">Facebook <span class="fa fa-facebook"></span> </a>       
+            <a href="/google" class="btn btn-danger"> Google <span class="fa fa-google-plus"></span> </a> 
+            <a href="/linkedin" class="btn btn-primary">LinkedIn <span class="fa fa-linkedin"></span> </a> 
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                
+            <!-- <li th:classappend="${module == 'home' ? 'active' : ''}">
+                <a href="#" th:href="@{/}">Home</a>
+            </li>
+            <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+                <a href="#" th:href="@{/task}">Tasks</a>
+            </li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <!-- <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                <a href="/signin" th:href="@{/signin}">
+                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                </a>
+            </li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
+                <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                </a>
+                <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+            </li> -->
+
+            </ul>
+        </div>
+        </div>
+    </div>
+    </body>
+</html>
