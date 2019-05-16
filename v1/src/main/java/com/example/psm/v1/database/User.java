@@ -13,6 +13,8 @@ public class User {
     private String name;
 	private String email;
 	private String houseID;
+	private String area;
+	private String address;
 
 	public Integer getId() {
 		return id;
@@ -44,6 +46,22 @@ public class User {
 
 	public void setHouseID(String houseID){
 		this.houseID = houseID;
+	}
+
+	public String getArea(){
+		return this.area;
+	}
+
+	public void setArea(String area){
+		this.area = area;
+	}
+
+	public String getAddress(){
+		return address;
+	}
+
+	public void setAddress(String address){
+		this.address = address;
 	}
 
 

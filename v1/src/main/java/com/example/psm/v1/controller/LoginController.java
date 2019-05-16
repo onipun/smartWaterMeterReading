@@ -4,6 +4,8 @@ import com.example.psm.v1.database.User;
 import com.example.psm.v1.database.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.configurers.SecurityContextConfigurer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,5 +52,20 @@ public class LoginController {
 		return userRepository.findAll();
 	}
 
+	@GetMapping(path="/login-test")
+	public @ResponseBody String getLoginTest() {
+		// This returns a JSON or XML with the users
+		return "success";
+	}
+
+	@GetMapping(path="/ldapUser")
+	public @ResponseBody String getLdapUser() {
+		// This returns a JSON or XML with the users
+		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+
+
+
+	
   
 }

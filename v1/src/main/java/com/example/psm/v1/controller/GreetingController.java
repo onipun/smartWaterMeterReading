@@ -31,7 +31,8 @@ public class GreetingController {
         model.addAttribute("img", src);
 
        TextDetection textDetection = applicationContext.getBean(TextDetection.class);
-       textDetection.imgProc();
+       String imagePath = "C:\\c.jpg";
+       textDetection.imgProc(imagePath);
     
         return "greeting";
     }
@@ -57,6 +58,11 @@ public class GreetingController {
         model.addAttribute("previousDatePrice", dataFetching.getCurrentMonthCost(date-1));
         model.addAttribute("delayPayment", dataFetching.getUnpayStatus(date)); 
         return "index";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
     }
 
     @GetMapping("/buttons.html")

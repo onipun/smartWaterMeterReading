@@ -2,12 +2,16 @@
 
 package com.example.psm.v1;
 
+import com.example.psm.v1.service.*;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,10 +21,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/user/**","/upload/**").permitAll()   
+				.antMatchers("/user/**","/login").permitAll()   
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
+			.loginProcessingUrl("/login")
+			.successHandler(myAuthenticationSuccessHandler())
 				.and()
 			.httpBasic();
 	}
@@ -39,5 +45,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.passwordEncoder(new LdapShaPasswordEncoder())
 					.passwordAttribute("userPassword");
 	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	  web
+		.ignoring()
+		   .antMatchers("/upload/**"); // #3
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new UrlaAuthenticationSuccessHandler();
+    }
+
 
 }

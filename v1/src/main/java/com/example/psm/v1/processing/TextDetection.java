@@ -76,10 +76,10 @@ public class TextDetection {
                 System.err.println(e.getMessage());
             }	
 		}
-    	System.out.println(result);
+    	// System.out.println(result);
     	return result;
     }
-    public void imgProc(){
+    public String imgProc(String imgPath){
         Point[] vertices = null;
         RotatedRect rot = null;
         float scoreThresh = 0.5f;
@@ -97,7 +97,7 @@ public class TextDetection {
 
         
         // input image
-        Mat frame = Imgcodecs.imread(demoImg);
+        Mat frame = Imgcodecs.imread(imgPath);
         //Mat frame = Imgcodecs.imread("C:\\Users\\shaufyq\\Desktop\\syamil.jpg");
         Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGBA2RGB);
 
@@ -199,7 +199,8 @@ public class TextDetection {
 		}
         
         //hard-coded to OCR-A since we use in Malaysia's water meter font
-        textRecognition(digits);
+        String result = textRecognition(digits);
+        return result;
     }
     public static BufferedImage findContour(Mat img, Mat imgC) {
     	List<MatOfPoint> contours = new ArrayList<>();

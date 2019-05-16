@@ -37,6 +37,7 @@ public class DemoApplication {
 		System.out.println("Spring version: " + SpringVersion.getVersion());
 		SpringApplication.run(DemoApplication.class, args);
 
+
 	}
 
 	// @Bean
