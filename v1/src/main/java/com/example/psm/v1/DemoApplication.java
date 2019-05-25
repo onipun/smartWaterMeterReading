@@ -1,14 +1,28 @@
 package com.example.psm.v1;
 
+import java.util.Hashtable;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.naming.*;
+import javax.naming.directory.*;
+
+import com.example.psm.v1.database.Person;
+import com.example.psm.v1.database.User;
+import com.example.psm.v1.model.PersonRepository;
+
 import org.apache.tomcat.jni.Library;
 import org.opencv.core.Core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.SpringVersion;
-
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.LdapContextSource;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     @SpringBootApplication is a convenience annotation that adds all of the following:
@@ -22,62 +36,52 @@ import org.springframework.core.SpringVersion;
 public class DemoApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
+	@Autowired
+	PersonRepository personRepository;
+
 	public static void main(String[] args) {
-		
-		//context should be close to avoid leaking of memory
+
+		// context should be close to avoid leaking of memory
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		ctx.register(WebConfig.class);
 		ctx.refresh();
 		ctx.close();
 
-		//load library in main before proceeding deeper
-		//using Library class to avoid from redundant load error
+		// load library in main before proceeding deeper
+		// using Library class to avoid from redundant load error
 		Library.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
+
 		System.out.println("Spring version: " + SpringVersion.getVersion());
 		SpringApplication.run(DemoApplication.class, args);
 
-
+		
 	}
 
-	// @Bean
-	// public CommandLineRunner demo(CustomerRepository repository) {
-	// 	return (args) -> {
-	// 		// save a couple of customers
-	// 		// repository.save(new Customer("Jack", "Bauer"));
-	// 		// repository.save(new Customer("Chloe", "O'Brian"));
-	// 		// repository.save(new Customer("Kim", "Bauer"));
-	// 		// repository.save(new Customer("David", "Palmer"));
-	// 		// repository.save(new Customer("Michelle", "Dessler"));
+	@PostConstruct
+	public void name() {
+		
+		log.info("ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
+		
 
-	// 		// fetch all customers
-	// 		log.info("Customers found with findAll():");
-	// 		log.info("-------------------------------");
-	// 		for (Customer customer : repository.findAll()) {
-	// 			log.info(customer.toString());
-	// 		}
-	// 		log.info("");
+		// Person p = new Person();
+		// p.setName("admin");
+		// if (personRepository.create(p)) {
+		// 	log.info("true");
+		// 	log.info("new User created: "+p.getName());
+		// } else {
+		// 	log.info("false");
+		// }
 
-	// 		// fetch an individual customer by ID
-	// 		repository.findById(1L)
-	// 			.ifPresent(customer -> {
-	// 				log.info("Customer found with findById(1L):");
-	// 				log.info("--------------------------------");
-	// 				log.info(customer.toString());
-	// 				log.info("");
-	// 			});
+		List<String> names = personRepository.getAllPersonNames();
+		for (String var : names) {
+			log.info(var);	
+		}
+		
+		
 
-	// 		// fetch customers by last name
-	// 		log.info("Customer found with findByLastName('Bauer'):");
-	// 		log.info("--------------------------------------------");
-	// 		repository.findByLastName("Bauer").forEach(bauer -> {
-	// 			log.info(bauer.toString());
-	// 		});
-	// 		// for (Customer bauer : repository.findByLastName("Bauer")) {
-	// 		// 	log.info(bauer.toString());
-	// 		// }
-	// 		log.info("");
-	// 	};
-	// }
+
+		log.info("ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
+		// System.exit(-1);
+	}
 
 }

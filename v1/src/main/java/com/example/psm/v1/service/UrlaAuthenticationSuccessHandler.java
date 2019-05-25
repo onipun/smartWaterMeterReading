@@ -61,7 +61,7 @@ public class UrlaAuthenticationSuccessHandler
          = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             System.out.println( grantedAuthority.getAuthority());
-            if (SecurityContextHolder.getContext().getAuthentication().getName().equals("ben")) {
+            if (SecurityContextHolder.getContext().getAuthentication().getName().equals("bob")) {
                 isAdmin = true;
                 break;
             } else {
@@ -75,7 +75,8 @@ public class UrlaAuthenticationSuccessHandler
         } else if (isAdmin) {
             return "/admin";
         } else {
-            throw new IllegalStateException();
+            return "/";
+            // throw new IllegalStateException();
         }
     }
  

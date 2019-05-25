@@ -55,7 +55,7 @@ public class TextDetection {
         
     }
     public String textRecognition(Mat[] digits) {
-    	String result = null;
+    	String result = "";
         
         
         ITesseract instance = new net.sourceforge.tess4j.Tesseract(); // JNA Interface Mapping
@@ -70,13 +70,15 @@ public class TextDetection {
 
         for (int i = 0; i < 5; i++) {
         	try {
-                result += instance.doOCR(resize(toBufferedImage(digits[i]), 474, 371)) + " ";
+                result += instance.doOCR(resize(toBufferedImage(digits[i]), 474, 371)) + "";
                 
             } catch (TesseractException e) {
                 System.err.println(e.getMessage());
             }	
 		}
-    	// System.out.println(result);
+    	result = result.replace("\n", "");
+        result = result.replace("\r", "");
+        System.out.print(result);
     	return result;
     }
     public String imgProc(String imgPath){

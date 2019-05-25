@@ -15,6 +15,7 @@ public class User {
 	private String houseID;
 	private String area;
 	private String address;
+	private String identityCard;
 
 	public Integer getId() {
 		return id;
@@ -62,6 +63,13 @@ public class User {
 
 	public void setAddress(String address){
 		this.address = address;
+	}
+
+	public String getIdentityCard(){
+		return identityCard;
+	}
+	public void setIdentityCard(String identityCard){
+		this.identityCard = identityCard;
 	}
 
 

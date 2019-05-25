@@ -3,14 +3,13 @@ package com.example.psm.v1.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.psm.v1.database.UploadImg;
 import com.example.psm.v1.database.UploadImgRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import net.bytebuddy.asm.Advice.Exit;
 
 
 /**
@@ -27,6 +26,22 @@ public class DataFetching {
         
         Iterable<UploadImg> allHistory = history.findAll();
         System.out.println(allHistory);
+        return allHistory;
+    }
+
+    public Iterable<UploadImg> imgIndividu(int id) {
+        
+        Iterable<UploadImg> allHistory = history.findById(id);
+        System.out.println(allHistory);
+
+        return allHistory;
+    }
+
+    public Iterable<UploadImg> fetchUserhistory(String id) {
+        
+        Iterable<UploadImg> allHistory = history.fetchUserHistory(id);
+        System.out.println(allHistory);
+
         return allHistory;
     }
 

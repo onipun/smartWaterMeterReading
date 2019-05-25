@@ -16,7 +16,7 @@ public class UploadImg {
     int imgRead;
     int price;
     int uploadBy;
-    int ownerId;
+    String ownerId;
     Date date;
     String status;
 
@@ -60,11 +60,11 @@ public class UploadImg {
         this.uploadBy = uploadBy;
     }
 
-    public int getOwnerId(){
+    public String getOwnerId(){
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId){
+    public void setOwnerId(String ownerId){
         this.ownerId = ownerId;
     }
 

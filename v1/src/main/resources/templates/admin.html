@@ -18,6 +18,10 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  
 </head>
 
 <body id="page-top">
@@ -55,7 +59,7 @@
       </div>
 
       <!-- Nav Item - Register New User -->
-      <li class="nav-item">
+      <li class="nav-item" id ="register">
         <a class="nav-link" href="charts.html">
           <!-- <i class="fas fa-fw fa-chart-area"></i> -->
           <i class="fas fa-fw fa-user"></i>
@@ -165,9 +169,9 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search User" aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" id="searchUserInput" class="form-control bg-light border-0 small" placeholder="Search User" aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" id="searchUser" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -340,8 +344,15 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+            <!-- error box -->
+            <div id="feedback"></div>
+
+            <!-- table ajax process -->
+            <div id="userTable">
+                    <h1 class="h3 mb-4 text-gray-800">Client checklist</h1>
+                    <span th:if="${history == null}">No Data to be show</span>
+            </div>
+
 
         </div>
         <!-- /.container-fluid -->
@@ -398,6 +409,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Custome js for admin page -->
+  <script type="text/javascript" src="js/admin/admin.js"></script>
 
 </body>
 
