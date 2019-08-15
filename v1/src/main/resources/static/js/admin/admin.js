@@ -4,7 +4,12 @@ $(document).ready(function () {
     $("#searchUser").click(function (e) { 
         e.preventDefault();
         var data = $("#searchUserInput").val();
-        alert(data);
+        if (/[abcdefghijklmnopqrstuvwxyz]/g.test(data)) {
+            alert("only numeric value!");
+            return $("#userTable").html(
+                '<h1 class="h3 mb-4 text-gray-800">Client checklist</h1>'+'<span th:if="${history == null}">No Data to be show</span>'
+            );
+        }
         $.ajax({
             type: "GET",
             contentType: "application/json",

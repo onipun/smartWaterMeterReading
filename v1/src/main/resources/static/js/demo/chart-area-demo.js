@@ -31,8 +31,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 var ctx = document.getElementById("myAreaChart");
 var paymentCost = document.getElementById("costData").getAttribute("value");
 var paymentDate = document.getElementById("costDataDate").getAttribute("value");
+
+var dateArr = paymentDate.substring(1,paymentDate.length-1);
+var splitor = ",";
+dateArr = dateArr.split(splitor);
+
 Cost = JSON.parse(paymentCost);
-date = JSON.parse(paymentDate);
+date = dateArr;
 
   
 var myLineChart = new Chart(ctx, {
@@ -71,16 +76,16 @@ var myLineChart = new Chart(ctx, {
           unit: 'date'
         },
         gridLines: {
-          display: false,
-          drawBorder: false
+          display: true,
+          drawBorder: true
         },
         ticks: {
-          maxTicksLimit: 7
+          maxTicksLimit: 12
         }
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
+          maxTicksLimit: 12,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
@@ -116,7 +121,7 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': RM' + number_format(tooltipItem.yLabel);
+          return  datasetLabel + ': RM' + number_format(tooltipItem.yLabel);
         }
       }
     }

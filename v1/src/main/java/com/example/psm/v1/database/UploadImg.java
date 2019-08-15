@@ -13,8 +13,8 @@ public class UploadImg {
     @GeneratedValue(strategy=GenerationType.AUTO)
     int id;
     String imgName;
-    int imgRead;
-    int price;
+    Double imgRead;
+    Double price;
     int uploadBy;
     String ownerId;
     Date date;
@@ -36,19 +36,19 @@ public class UploadImg {
         this.imgName = imgName;
     }
 
-    public void setImgRead(int imgRead){
+    public void setImgRead(Double imgRead){
         this.imgRead = imgRead;
     }
 
-    public int getImgRead(){
+    public Double getImgRead(){
         return imgRead;
     }
 
-    public void setPrice(int price){
+    public void setPrice(Double price){
         this.price = price;
     }
 
-    public int getPrice(){
+    public Double getPrice(){
         return price;
     }
 

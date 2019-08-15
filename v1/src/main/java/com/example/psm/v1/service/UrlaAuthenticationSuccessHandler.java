@@ -7,8 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.example.psm.v1.model.DataFetching;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +24,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class UrlaAuthenticationSuccessHandler
   implements AuthenticationSuccessHandler {
   
+    @Autowired
+    ApplicationContext applicationContext;
+    
     protected Log logger = LogFactory.getLog(this.getClass());
  
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -71,11 +78,13 @@ public class UrlaAuthenticationSuccessHandler
         }
  
         if (isUser) {
-            return "/";
+            DataFetching dataFetching = applicationContext.getBean(DataFetching.class);
+            return "/?id="+dataFetching.getAuthIc(SecurityContextHolder.getContext().getAuthentication().getName());
         } else if (isAdmin) {
             return "/admin";
         } else {
-            return "/";
+            DataFetching dataFetching = applicationContext.getBean(DataFetching.class);
+            return "/?id="+dataFetching.getAuthIc(SecurityContextHolder.getContext().getAuthentication().getName());
             // throw new IllegalStateException();
         }
     }

@@ -9,7 +9,7 @@ public interface UploadImgRepository extends CrudRepository<UploadImg, Long> {
 
     Iterable<UploadImg> findById(int id);
 
-    @Query("SELECT u FROM UploadImg u WHERE u.ownerId = :id")
+    @Query("SELECT u FROM UploadImg u WHERE u.ownerId = :id ORDER BY id DESC")
     Iterable<UploadImg> fetchUserHistory(@Param("id") String id );
     
 }

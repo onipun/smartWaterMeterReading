@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.psm.v1.model.DataFetching;
 import com.example.psm.v1.processing.TextDetection;
+import com.example.psm.v1.processing.TextDetectionMethod2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -30,33 +31,48 @@ public class GreetingController {
         String src = "syamil.jpg";
         model.addAttribute("img", src);
 
-       TextDetection textDetection = applicationContext.getBean(TextDetection.class);
-       String imagePath = "C:\\c.jpg";
-       textDetection.imgProc(imagePath);
+    //    TextDetection textDetection = applicationContext.getBean(TextDetection.class);
+       TextDetectionMethod2 textDetectionMethod2 = applicationContext.getBean(TextDetectionMethod2.class);
+       String imagePath = "C:\\images\\1562603972422.jpg";
+       textDetectionMethod2.imgProc(imagePath, true);
     
         return "greeting";
     }
 
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request) {
+    public String index(Model model, HttpServletRequest request, @RequestParam String id) {
 
         DataFetching dataFetching = applicationContext.getBean(DataFetching.class);
-        model.addAttribute("history", dataFetching.getConvertToImgString());
-        model.addAttribute("historyDate", dataFetching.getConvertToImgDateString()); 
+        model.addAttribute("history", dataFetching.getConvertToImgString(id));
+        model.addAttribute("historyDate", dataFetching.getConvertToImgDateString(id)); 
+
+        int date = new Date().getMonth();
+        model.addAttribute("currentDatePrice", dataFetching.getCurrentMonthCost(date, id)); 
+        model.addAttribute("previousDatePrice", dataFetching.getCurrentMonthCost(date-1, id));
+        model.addAttribute("delayPayment", dataFetching.getUnpayStatus(date)); 
+
+        
+        model.addAttribute("id", id);
+        model.addAttribute("owner", dataFetching.getOwnerName(id));
+        model.addAttribute("address", dataFetching.getOwnerAddress(id));
         return "index";
     }
 
     @GetMapping("/index.html")
-    public String indexHtml(Model model, HttpServletRequest requests) {
+    public String indexHtml(Model model, HttpServletRequest requests, @RequestParam String id) {
 
         DataFetching dataFetching = applicationContext.getBean(DataFetching.class);
-        model.addAttribute("history", dataFetching.getConvertToImgString());
-        model.addAttribute("historyDate", dataFetching.getConvertToImgDateString()); 
+        model.addAttribute("history", dataFetching.getConvertToImgString(id));
+        model.addAttribute("historyDate", dataFetching.getConvertToImgDateString(id)); 
         
         int date = new Date().getMonth();
-        model.addAttribute("currentDatePrice", dataFetching.getCurrentMonthCost(date)); 
-        model.addAttribute("previousDatePrice", dataFetching.getCurrentMonthCost(date-1));
+        model.addAttribute("currentDatePrice", dataFetching.getCurrentMonthCost(date, id)); 
+        model.addAttribute("previousDatePrice", dataFetching.getCurrentMonthCost(date-1, id));
         model.addAttribute("delayPayment", dataFetching.getUnpayStatus(date)); 
+
+        model.addAttribute("id", id);
+        model.addAttribute("owner", dataFetching.getOwnerName(id));
+        model.addAttribute("address", dataFetching.getOwnerAddress(id));
         return "index";
     }
 
@@ -129,10 +145,11 @@ public class GreetingController {
     }
 
     @GetMapping("/tables.html")
-    public String tables(Model model, HttpServletRequest request) {
-        
+    public String tables(Model model, HttpServletRequest request,@RequestParam("id") String id) {
+       
        DataFetching dataFetching = applicationContext.getBean(DataFetching.class);
-       model.addAttribute("history", dataFetching.img());
+       model.addAttribute("history", dataFetching.fetchUserhistory(id));
+       model.addAttribute("id", id);
         return "tables";
     }    
 
